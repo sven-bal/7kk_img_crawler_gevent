@@ -21,7 +21,7 @@ gevent.monkey.patch_all()
 
 
 
-#f1：回话对象，接收url，返回bs解析后soup。
+#f1：回话对象，接收url。
 class session:
     def __init__(self):
         self.failed_l=[]
@@ -52,13 +52,13 @@ class session:
                     time.sleep(2)
                     ip=random.choice(IP[0][1].split('|'))
                     pr={'http':str(ip)}
-                    print('使用代理%s'%url)
+                    print('开始使用代理%s'%url)
                     return self.f0(url,proxy=pr)
         else:
             try:
                 ip=random.choice(IP[0][1].split('|'))
                 pr={'http':str(ip)}
-                print('使用给定代理%s'%url)
+                print('使用代理%s'%url)
                 return self.session.get(url,headers=head,timeout=10,cookies=self.cookie,proxies=pr)
             except:
                 if num_c >0:
@@ -73,13 +73,13 @@ class session:
                     
 
 
-                    
-                    
+                                        
 meinv_url = 'http://www.7kk.com/meinv/all/new----'
 renwu_url='http://www.7kk.com/renwu/nvmingxing/new----'
 base_person_url = 'http://www.7kk.com/album/photos/'
 start_url = 'http://www.7kk.com'
 p = Pool(100)
+
 def f1(url):
     src=session().f0(url) 
     soup = bs(src.content,'html.parser')
@@ -164,7 +164,7 @@ def f7(title,max_url):
     
 
 def main():
-    with open('er.txt','a+') as f:
+    with open('log.txt','a+') as f:
         start = time.time()
         sys.stdout = f
         sys.stderr = f
